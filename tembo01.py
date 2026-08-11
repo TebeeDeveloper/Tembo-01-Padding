@@ -14,12 +14,9 @@ def tembo01_pad(data: bytes, block_size: int = 8) -> bytes:
         Data with padding appended.
     """
     data_length = len(data)
-    pad_length = block_size - (data_length % block_size)  # ALWAYS compute, even if aligned
-
-    if pad_length == 1:
-        # Not enough space for 0x80 marker → pad byte = length
-        padding = bytes([pad_length])
-    else:
+    pad_length = block_size - (data_length % block_size)
+    if pad_length < 2:
+        pad_length += block_size# ALWAYS compute, even if aligned
         # Format: [0x80][0xBF ...][pad_length]
         padding = b"\x80" + b"\xBF" * (pad_length - 2) + bytes([pad_length])
 
