@@ -18,7 +18,7 @@ def tembo01_pad(data: bytes, block_size: int = 8) -> bytes:
     if pad_length < 2:
         pad_length += block_size# ALWAYS compute, even if aligned
         # Format: [0x80][0xBF ...][pad_length]
-        padding = b"\x80" + b"\xBF" * (pad_length - 2) + bytes([pad_length])
+    padding = b"\x80" + b"\xBF" * (pad_length - 2) + bytes([pad_length])
 
     return data + padding
 
