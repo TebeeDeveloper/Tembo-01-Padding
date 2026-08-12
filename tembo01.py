@@ -34,6 +34,9 @@ def tembo01_unpad(padded_data: bytes) -> bytes:
         Original data without padding.
     """
     pad_length = padded_data[-1]  # Last byte = padding length
+    if padded_data[-pad_length] != 0x80:
+        raise Exception("Padding byte error!")
+        return b""
     return padded_data[:-pad_length]
 
 
