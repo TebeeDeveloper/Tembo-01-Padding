@@ -57,7 +57,7 @@ def tembo01_pad(data: bytes, block_size: int = 8) -> bytes:
 def tembo01_unpad(padded_data: bytes) -> bytes:
     """Remove Tembo#01 padding."""
     pad_length = padded_data[-1]
-    id padded_data[-pad_length] != 0x80:
+    if padded_data[-pad_length] != 0x80:
         raise Exception("Padding byte error!")
         return b""
     return padded_data[:-pad_length]
